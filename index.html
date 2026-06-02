@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3b7549" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#5aad74" media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Personal GERD-friendly meal tracker with shopping list and water tracking">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Meals">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/app.css">
+  <title>Meals</title>
+</head>
+<body>
+
+<div id="app" role="application">
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header class="app-header">
+    <h1 class="app-title" id="app-title">Meals</h1>
+  </header>
+
+  <!-- ── Tab content ────────────────────────────────────────────────────── -->
+  <div class="tab-content" role="main">
+
+    <!-- Meals tab -->
+    <div id="tab-meals" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-meals">
+      <div class="meals-top">
+        <div id="day-selector"
+             class="day-selector"
+             role="group"
+             aria-label="Select day"></div>
+        <div id="macro-summary"
+             class="macro-summary"
+             aria-label="Daily macro progress"></div>
+      </div>
+      <p id="weekend-note" class="weekend-note" hidden>Weekend — showing Monday's plan</p>
+      <div id="meal-cards" class="meal-cards" aria-label="Meals"></div>
+    </div>
+
+    <!-- Shopping tab -->
+    <div id="tab-shopping" class="tab-panel" hidden role="tabpanel" aria-labelledby="tab-btn-shopping">
+      <div id="shopping-content" aria-label="Shopping list"></div>
+    </div>
+
+    <!-- Water tab -->
+    <div id="tab-water" class="tab-panel" hidden role="tabpanel" aria-labelledby="tab-btn-water">
+      <div class="water-inner">
+
+        <div class="water-ring-wrap">
+          <svg id="water-ring-svg"
+               class="water-ring"
+               viewBox="0 0 200 200"
+               role="img"
+               aria-label="Water intake progress ring">
+            <circle class="ring-track" cx="100" cy="100" r="80"/>
+            <circle id="water-ring-fill"
+                    class="ring-fill"
+                    cx="100" cy="100" r="80"
+                    stroke-dasharray="502.655"
+                    stroke-dashoffset="502.655"/>
+          </svg>
+          <div class="ring-center" aria-live="polite" aria-atomic="true">
+            <span id="water-value" class="ring-value">0</span>
+            <span id="water-goal-text" class="ring-unit">/ 3000 ml</span>
+          </div>
+        </div>
+
+        <div class="water-actions" role="group" aria-label="Add water">
+          <button class="water-add-btn" data-ml="150" type="button" aria-label="Add 150ml">+150</button>
+          <button class="water-add-btn" data-ml="250" type="button" aria-label="Add 250ml">+250</button>
+          <button class="water-add-btn" data-ml="500" type="button" aria-label="Add 500ml">+500</button>
+          <button class="water-add-btn" data-ml="750" type="button" aria-label="Add 750ml">+750</button>
+        </div>
+
+        <div class="water-goal-row">
+          <button id="goal-decrease"
+                  class="water-goal-btn"
+                  type="button"
+                  aria-label="Decrease daily goal by 250ml">−</button>
+          <span id="goal-display" class="goal-display">3L goal</span>
+          <button id="goal-increase"
+                  class="water-goal-btn"
+                  type="button"
+                  aria-label="Increase daily goal by 250ml">+</button>
+        </div>
+
+        <button id="water-reset" class="water-reset" type="button">Reset today</button>
+
+        <div class="reminder-section">
+          <p id="notification-caveat" class="reminder-note" hidden></p>
+          <button id="notify-btn" class="reminder-btn" type="button">Remind me every hour</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /.tab-content -->
+
+  <!-- ── Tab bar ─────────────────────────────────────────────────────────── -->
+  <nav class="tab-bar" role="tablist" aria-label="Main navigation">
+
+    <button id="tab-btn-meals"
+            class="tab-btn active"
+            role="tab"
+            data-tab="meals"
+            aria-selected="true"
+            aria-controls="tab-meals"
+            type="button">
+      <!-- Utensils icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+        <line x1="7" y1="2" x2="7" y2="22"/>
+        <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+      </svg>
+      <span>Meals</span>
+    </button>
+
+    <button id="tab-btn-shopping"
+            class="tab-btn"
+            role="tab"
+            data-tab="shopping"
+            aria-selected="false"
+            aria-controls="tab-shopping"
+            type="button">
+      <!-- Shopping bag icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span>Shopping</span>
+    </button>
+
+    <button id="tab-btn-water"
+            class="tab-btn"
+            role="tab"
+            data-tab="water"
+            aria-selected="false"
+            aria-controls="tab-water"
+            type="button">
+      <!-- Droplet icon -->
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+      </svg>
+      <span>Water</span>
+    </button>
+
+  </nav>
+
+</div><!-- /#app -->
+
+<!-- Recipe sheet (dialog) -->
+<dialog id="recipe-sheet" class="recipe-sheet" aria-labelledby="recipe-title" aria-modal="true">
+  <div class="sheet-inner">
+    <div class="sheet-drag-handle" aria-hidden="true"></div>
+    <div class="sheet-header">
+      <div class="sheet-title-wrap">
+        <h2 class="sheet-title" id="recipe-title">Recipe</h2>
+        <p class="sheet-macros" id="recipe-macros"></p>
+      </div>
+      <button id="recipe-close"
+              class="sheet-close"
+              type="button"
+              aria-label="Close recipe">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="sheet-divider"></div>
+    <div class="sheet-body">
+      <p class="sheet-section-title">Ingredients</p>
+      <ul id="recipe-ingredients" class="ingredients-list"></ul>
+      <p class="sheet-section-title">Instructions</p>
+      <ol id="recipe-instructions" class="instructions-list"></ol>
+      <p id="recipe-tip" class="recipe-tip" hidden></p>
+    </div>
+  </div>
+</dialog>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

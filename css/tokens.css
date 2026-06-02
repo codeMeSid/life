@@ -1,0 +1,146 @@
+/* tokens.css — OKLCH design system from DESIGN.md */
+
+:root {
+  /* Background & surface */
+  --bg:         oklch(1 0 0);
+  --surface:    oklch(0.985 0.004 150);
+  --surface-2:  oklch(0.965 0.005 150);
+
+  /* Text */
+  --ink:        oklch(0.22 0.02 150);
+  --muted:      oklch(0.45 0.02 150);
+
+  /* Borders */
+  --border:     oklch(0.91 0.005 150);
+
+  /* Primary (green) */
+  --primary:       oklch(0.46 0.11 145);
+  --primary-ink:   oklch(0.99 0.01 145);
+  --primary-soft:  oklch(0.94 0.03 145);
+
+  /* Water (blue — water tab only) */
+  --water:      oklch(0.62 0.10 230);
+  --water-soft: oklch(0.95 0.03 230);
+
+  /* Semantic */
+  --success:    oklch(0.55 0.12 150);
+  --warning:    oklch(0.72 0.13 75);
+  --danger:     oklch(0.55 0.17 27);
+
+  /* Macro data-viz */
+  --macro-cal:     oklch(0.46 0.11 145);
+  --macro-protein: oklch(0.55 0.12 25);
+  --macro-carbs:   oklch(0.70 0.12 75);
+  --macro-fat:     oklch(0.62 0.10 230);
+
+  /* Spacing scale (4px base) */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+  --sp-12: 48px;
+
+  /* Radius */
+  --r-sm:   8px;
+  --r-md:   12px;
+  --r-lg:   16px;
+  --r-full: 999px;
+
+  /* Type scale (fixed rem, ~1.2 ratio) */
+  --text-display: 2.0rem;
+  --text-h1:      1.5rem;
+  --text-h2:      1.25rem;
+  --text-body:    1.0rem;
+  --text-label:   0.875rem;
+  --text-meta:    0.75rem;
+
+  --weight-display: 700;
+  --weight-h1:      650;
+  --weight-h2:      600;
+  --weight-body:    450;
+  --weight-label:   500;
+  --weight-meta:    500;
+
+  /* Z-index scale */
+  --z-dropdown:  10;
+  --z-sticky:    20;
+  --z-backdrop:  30;
+  --z-modal:     40;
+  --z-toast:     50;
+  --z-tooltip:   60;
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast:  150ms;
+  --duration-base:  200ms;
+  --duration-slow:  250ms;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        oklch(0.17 0.01 150);
+    --surface:   oklch(0.21 0.012 150);
+    --surface-2: oklch(0.25 0.014 150);
+    --ink:       oklch(0.96 0.01 150);
+    --muted:     oklch(0.72 0.015 150);
+    --border:    oklch(0.30 0.012 150);
+    --primary:   oklch(0.68 0.13 145);
+    --primary-ink:  oklch(0.15 0.02 145);
+    --primary-soft: oklch(0.25 0.04 145);
+    --water:     oklch(0.70 0.11 230);
+    --water-soft:oklch(0.22 0.04 230);
+    --success:   oklch(0.65 0.13 150);
+    --warning:   oklch(0.78 0.13 75);
+    --danger:    oklch(0.65 0.17 27);
+  }
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: var(--text-body);
+  font-weight: var(--weight-body);
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--bg);
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button { cursor: pointer; border: none; background: none; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
