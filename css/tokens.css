@@ -14,7 +14,7 @@
   --border:     oklch(0.91 0.005 150);
 
   /* Primary (green) */
-  --primary:       oklch(0.46 0.11 145);
+  --primary:       oklch(0.44 0.14 145);
   --primary-ink:   oklch(0.99 0.01 145);
   --primary-soft:  oklch(0.94 0.03 145);
 
@@ -28,7 +28,7 @@
   --danger:     oklch(0.55 0.17 27);
 
   /* Macro data-viz */
-  --macro-cal:     oklch(0.46 0.11 145);
+  --macro-cal:     oklch(0.44 0.14 145);
   --macro-protein: oklch(0.55 0.12 25);
   --macro-carbs:   oklch(0.70 0.12 75);
   --macro-fat:     oklch(0.62 0.10 230);
@@ -50,14 +50,14 @@
   --r-full: 999px;
 
   /* Type scale (fixed rem, ~1.2 ratio) */
-  --text-display: 2.0rem;
+  --text-display: 2.75rem;
   --text-h1:      1.5rem;
   --text-h2:      1.25rem;
   --text-body:    1.0rem;
   --text-label:   0.875rem;
   --text-meta:    0.75rem;
 
-  --weight-display: 700;
+  --weight-display: 750;
   --weight-h1:      650;
   --weight-h2:      600;
   --weight-body:    450;
@@ -88,7 +88,7 @@
     --ink:       oklch(0.96 0.01 150);
     --muted:     oklch(0.72 0.015 150);
     --border:    oklch(0.30 0.012 150);
-    --primary:   oklch(0.68 0.13 145);
+    --primary:   oklch(0.70 0.16 145);
     --primary-ink:  oklch(0.15 0.02 145);
     --primary-soft: oklch(0.25 0.04 145);
     --water:     oklch(0.70 0.11 230);

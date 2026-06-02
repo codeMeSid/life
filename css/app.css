@@ -29,8 +29,8 @@
 }
 
 .app-title {
-  font-size: var(--text-h2);
-  font-weight: var(--weight-h2);
+  font-size: var(--text-h1);
+  font-weight: 700;
   color: var(--ink);
 }
 
@@ -72,11 +72,24 @@
   font-size: 11px;
   font-weight: var(--weight-label);
   letter-spacing: 0.01em;
+  position: relative;
   transition: color var(--duration-fast) var(--ease-out-quart);
   -webkit-tap-highlight-color: transparent;
 }
 
 .tab-btn.active { color: var(--primary); }
+
+.tab-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2.5px;
+  background: var(--primary);
+  border-radius: var(--r-full);
+}
 
 .tab-btn:focus-visible {
   outline: 2px solid var(--primary);
@@ -143,6 +156,7 @@
   background: var(--primary);
   color: var(--primary-ink);
   border-color: var(--primary);
+  font-weight: 650;
 }
 
 @media (hover: hover) {
@@ -162,7 +176,7 @@
 .macro-item { display: flex; flex-direction: column; gap: var(--sp-1); }
 
 .macro-track {
-  height: 4px;
+  height: 6px;
   border-radius: var(--r-full);
   background: var(--border);
   overflow: hidden;
@@ -186,13 +200,13 @@
 }
 
 .macro-name {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: var(--weight-label);
   letter-spacing: 0.02em;
 }
 
 .macro-nums {
-  font-size: 10px;
+  font-size: 11px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
@@ -236,7 +250,7 @@
 }
 
 .meal-slot-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: var(--weight-label);
   color: var(--muted);
   letter-spacing: 0.06em;
@@ -269,9 +283,12 @@
   transition:
     background var(--duration-fast) var(--ease-out-quart),
     border-color var(--duration-fast) var(--ease-out-quart),
-    color var(--duration-fast) var(--ease-out-quart);
+    color var(--duration-fast) var(--ease-out-quart),
+    transform var(--duration-fast) var(--ease-out-quart);
   -webkit-tap-highlight-color: transparent;
 }
+
+.meal-check:active { transform: scale(0.88); }
 
 .meal-check svg {
   width: 18px;
@@ -287,6 +304,7 @@
   background: var(--primary);
   border-color: var(--primary);
   color: var(--primary-ink);
+  transform: scale(1.05);
 }
 
 @media (hover: hover) {
@@ -310,8 +328,8 @@
 }
 
 .meal-name {
-  font-size: var(--text-body);
-  font-weight: var(--weight-h2);
+  font-size: 1.05rem;
+  font-weight: 650;
   color: var(--ink);
   margin-bottom: var(--sp-1);
   line-height: 1.35;
@@ -752,7 +770,7 @@ dialog.recipe-sheet[open] {
 
 .water-add-btn {
   flex: 1;
-  min-height: 48px;
+  min-height: 52px;
   padding: 0 var(--sp-2);
   background: var(--water-soft);
   color: var(--water);
@@ -895,7 +913,14 @@ dialog.recipe-sheet[open] {
   .meal-check,
   .shopping-item,
   .day-pill,
-  .tab-btn {
+  .tab-btn,
+  .water-add-btn {
     transition: none !important;
+  }
+
+  .meal-check,
+  .meal-check[aria-pressed="true"],
+  .meal-check:active {
+    transform: none !important;
   }
 }
